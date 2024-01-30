@@ -1,0 +1,5 @@
+.Notifications {
+    padding: 2rem;
+    border: 0.2rem solid var(--color-primary);
+    border-radius: 0.4rem;
+}

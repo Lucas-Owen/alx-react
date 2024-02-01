@@ -5,27 +5,27 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
   mode: "development",
   plugins: [
-		new HTMLWebpackPlugin({
-			filename: "./index.html",
-		}),
-		new CleanWebpackPlugin(),
-		],
-	devtool: "inline-source-map",
-	entry: {
-		header: {
-			import: "./modules/header/header.js",
-			dependOn: "shared",
-		},
-		body: {
-			import: "./modules/body/body.js",
-			dependOn: "shared",
-		},
-		footer: {
-			import: "./modules/footer/footer.js",
-			dependOn: "shared",
-		},
-		shared: "jquery",
-	},
+    new HTMLWebpackPlugin({
+      filename: "./index.html",
+    }),
+    new CleanWebpackPlugin(),
+  ],
+  devtool: "inline-source-map",
+  entry: {
+    header: {
+      import: "./modules/header/header.js",
+      dependOn: "shared",
+    },
+    body: {
+      import: "./modules/body/body.js",
+      dependOn: "shared",
+    },
+    footer: {
+      import: "./modules/footer/footer.js",
+      dependOn: "shared",
+    },
+    shared: "jquery",
+  },
   output: {
     path: path.resolve(__dirname, "public"),
     filename: "[name].bundle.js",
@@ -52,13 +52,17 @@ module.exports = {
     maxAssetSize: 1000000,
   },
   optimization: {
-		splitChunks: {
-			chunks: 'all',
-		},
-	},
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
   devServer: {
-		static: path.join(__dirname, './public'),
-		open: true,
-		port: 8564,
-	},
-}
+    static: {
+      directory: path.join(__dirname, 'public')
+    },
+    open: false,
+    port: 8564,
+    host: "localhost",
+    hot: true
+  },
+};

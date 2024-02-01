@@ -23,7 +23,7 @@ const config = {
     devServer: {
         open: false,
         host: 'localhost',
-        port: 3000,
+        port: 8654,
         static: {
             directory: path.join(project_home_dir, "dist"),
         },

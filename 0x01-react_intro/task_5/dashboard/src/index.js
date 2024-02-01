@@ -1,15 +1,16 @@
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import App from './App';
 import Notification from './Notifications';
 
-const $ = require("jquery");
-
-const root = document.createElement('div');
-const root_notifications = document.createElement("div");
-
-root.id = "root";
-root_notifications.id="root-notifications"
-
-root_notifications.innerHTML = Notification();
-$("body").append(root);
-$("#root").append(root_notifications);
-$("#root").append(App());
+document.addEventListener("DOMContentLoaded", () => {
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  root.render(
+    <React.StrictMode>
+      <div id="root-notifications">
+        <Notification />
+      </div>
+      <App />
+    </React.StrictMode>
+  );
+});

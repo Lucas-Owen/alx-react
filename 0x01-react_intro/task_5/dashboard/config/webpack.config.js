@@ -55,7 +55,7 @@ const config = {
                 ]
             },
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/i,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',

@@ -1,14 +1,15 @@
 import './App.css';
+import React from "react"
 import { getFooterCopy, getFullYear } from './utils';
 
 function App() {
   return (
-    `<div class="App">
-      <div class="App-header">
-        <img src="./holberton-logo.jpg" class="App-logo" alt="logo" />
+    <div className="App">
+      <div className="App-header">
+        <img src="./holberton-logo.jpg" className="App-logo" alt="logo" />
         <h1>School dashboard</h1>
       </div>
-      <div class="App-body">
+      <div className="App-body">
         <p>Login to access the full dashboard</p>
         <label for="email">Email</label>
         <input type="email" name="email" id="email"/>
@@ -16,8 +17,8 @@ function App() {
         <input type="password" name="password" id="password"/>
         <button>OK</button>
       </div>
-      <div class="App-footer">Copyright ${getFullYear()} - ${getFooterCopy()}</div>
-    </div>`
+      <div className="App-footer">Copyright {getFullYear()} - {getFooterCopy()}</div>
+    </div>
   );
 }
 

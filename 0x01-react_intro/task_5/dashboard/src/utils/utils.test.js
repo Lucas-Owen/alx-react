@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from '@testing-library/react';
-import { getFooterCopy, getFullYear, getLatestNotification } from '../../../../task_2/dashboard/src/utils';
+import { getFooterCopy, getFullYear, getLatestNotification } from './utils';
 import {expect, test} from '@jest/globals';
 
 test("getFullYear returns the correct year", ()=>{

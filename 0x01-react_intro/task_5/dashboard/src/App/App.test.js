@@ -1,5 +1,5 @@
 import React from "react";
-import App from "./Notifications";
+import App from "../Notifications/Notifications";
 
 import { shallow } from "enzyme";
 import { it, describe, expect } from "@jest/globals";

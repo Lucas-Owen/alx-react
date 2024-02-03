@@ -6,10 +6,23 @@ html {
   font-family: sans-serif;
 }
 
+body {
+  display: flex;
+  min-height: 100vh;
+  margin: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  flex-grow: 1;
+}
+
 .App {
   display: flex;
   flex-direction: column;
-  min-height: 90vh;
+  flex-grow: 1;
 }
 
 .App-logo {

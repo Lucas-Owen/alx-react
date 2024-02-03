@@ -1,0 +1,18 @@
+.Notifications {
+    padding: 2rem;
+    border: 0.2rem solid var(--color-primary);
+    border-radius: 0.4rem;
+}
+
+.close-icon {
+    width: 15px;
+    height: 15px;
+}
+
+[data-notification-type="priority-default"] {
+    color: blue;
+}
+
+[data-notification-type="priority-urgent"] {
+    color: red;
+}

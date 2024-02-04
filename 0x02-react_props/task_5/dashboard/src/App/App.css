@@ -1,0 +1,36 @@
+:root {
+  --color-primary: #DE4D4D;
+}
+
+html {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 0.9em;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  margin: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  margin: 8px;
+  flex-grow: 1;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.App-logo {
+  width: 200px;
+  height: auto;
+}
+
+.App-body {
+  flex-grow: 1;
+}

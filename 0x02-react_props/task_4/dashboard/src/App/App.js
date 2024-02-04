@@ -8,7 +8,7 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import CourseList from '../CourseList/CourseList';
 
-function App ({isLoggedIn=false}) {
+function App ({isLoggedIn=true}) {
   return (
     <>
       <Notifications />

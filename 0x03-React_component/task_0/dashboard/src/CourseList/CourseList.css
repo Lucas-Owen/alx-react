@@ -1,0 +1,22 @@
+#CourseList thead th {
+    border-bottom: var(--course-list-table-border);
+}
+
+#CourseList {
+    --course-list-table-border: 2px solid rgba(200, 200, 200, 0.5);
+
+    width: 100%;
+    border: var(--course-list-table-border);
+    border-radius: 5px;
+    margin-top: 0.5rem;
+    border-collapse:separate;
+}
+
+#CourseList tr:not(:first-child) {
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+#CourseList th, #CourseList td {
+    padding: 0.25rem;
+}

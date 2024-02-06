@@ -25,7 +25,7 @@ const listNotifications = [
 function App ({ isLoggedIn = false }) {
   return (
     <>
-      <Notifications listNotifications={listNotifications}/>
+      <Notifications displayDrawerlistNotifications={listNotifications}/>
       <div className="App">
         <Header />
         <div className="App-body">

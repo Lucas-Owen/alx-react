@@ -8,6 +8,7 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import CourseList from '../CourseList/CourseList';
 
+
 import { getLatestNotification } from '../utils/utils';
 
 const listCourses = [

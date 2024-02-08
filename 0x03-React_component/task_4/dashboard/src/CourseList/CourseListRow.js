@@ -31,4 +31,6 @@ CourseListRow.propTypes = {
   textSecondCell: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
 
+CourseListRow.displayName = "CourseListRow";
+
 export default CourseListRow;

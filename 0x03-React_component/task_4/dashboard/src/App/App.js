@@ -83,4 +83,6 @@ App.defaultProps = {
   logOut: () => {}
 };
 
+App.displayName = "App";
+
 export default App;

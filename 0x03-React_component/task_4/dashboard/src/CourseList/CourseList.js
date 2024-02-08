@@ -22,3 +22,5 @@ export default function CourseList ({ listCourses=[] }) {
 CourseList.propTypes = {
   listCourses: PropTypes.arrayOf(CourseShape)
 };
+
+CourseList.displayName = "CourseList";

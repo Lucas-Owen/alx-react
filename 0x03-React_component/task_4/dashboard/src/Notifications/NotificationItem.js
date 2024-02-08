@@ -32,4 +32,6 @@ NotificationItem.defaultProps = {
   id: 0
 };
 
+NotificationItem.displayName = "NotificationItem";
+
 export default NotificationItem;

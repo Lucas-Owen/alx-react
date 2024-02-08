@@ -58,4 +58,6 @@ Notifications.defaultProps = {
   listNotifications: []
 };
 
+Notifications.displayName = "Notifications";
+
 export default Notifications;

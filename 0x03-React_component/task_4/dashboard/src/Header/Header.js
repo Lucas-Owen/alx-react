@@ -9,3 +9,5 @@ export default function Header () {
     </div>
   );
 }
+
+Header.displayName = "Header";

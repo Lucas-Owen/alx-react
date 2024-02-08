@@ -16,4 +16,6 @@ BodySection.propTypes = {
   title: PropTypes.string
 }
 
+BodySection.displayName = "BodySection";
+
 export default BodySection;

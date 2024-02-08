@@ -17,4 +17,6 @@ BodySectionWithMarginBottom.propTypes = {
   title: PropTypes.string
 }
 
+BodySectionWithMarginBottom.displayName = "BodySectionWithMarginBottom";
+
 export default BodySectionWithMarginBottom;

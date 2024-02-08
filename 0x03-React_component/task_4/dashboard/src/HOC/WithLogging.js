@@ -2,7 +2,7 @@ import React from "react";
 
 export default function WithLogging (WrappedComponent) {
   return class extends React.Component {
-    displayName = `WithLogging(${WrappedComponent.displayName})`
+    displayName = `WithLogging(${WrappedComponent.displayName})`;
     componentDidMount(){
       console.log(`Component ${WrappedComponent.displayName} is mounted`)
     }

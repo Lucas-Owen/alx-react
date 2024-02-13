@@ -1,0 +1,9 @@
+.App-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 0.2rem solid var(--color-primary);
+}
+
+.App-header h1 {
+    color: var(--color-primary);
+}

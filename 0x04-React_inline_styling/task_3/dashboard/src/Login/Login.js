@@ -1,6 +1,6 @@
 import React from "react";
 
-import { StyleSheet, css } from "aphrodite";
+import { StyleSheet, css } from "aphrodite/no-important";
 
 export default class Login extends React.Component {
   render () {

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { StyleSheet, css } from "aphrodite";
+import { StyleSheet, css } from "aphrodite/no-important";
 
 import NotificationItem from "./NotificationItem";
 import NotificationItemShape from "./NotificationItemShape";
@@ -109,6 +109,16 @@ const styles = StyleSheet.create({
     },
     ":nth-child(1n) [data-notification-type*='urgent']": {
       color: "red",
+    },
+    ":nth-child(1n) ul": {
+      padding: "0",
+    },
+    fontSize: "20px",
+    "@media (max-width: 900px)": {
+        width: "92%",
+        right: "auto",
+        alignSelf: "center",
+        height: "100%"
     }
   }
 });

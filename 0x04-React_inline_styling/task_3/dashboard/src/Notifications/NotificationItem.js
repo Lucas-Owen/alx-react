@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { StyleSheet, css } from "aphrodite/no-important";
 
 class NotificationItem extends React.PureComponent {
 
@@ -11,7 +12,7 @@ class NotificationItem extends React.PureComponent {
   render () {
     const { type, html, value, id } = this.state
     return (
-      <li id={id} data-notification-type={type} dangerouslySetInnerHTML={html} onClick={() => this.state.markAsRead(id)}>{value}</li>
+      <li className={css(styles.notificationItem)} id={id} data-notification-type={type} dangerouslySetInnerHTML={html} onClick={() => this.state.markAsRead(id)}>{value}</li>
     );
   }
 }
@@ -33,5 +34,14 @@ NotificationItem.defaultProps = {
 };
 
 NotificationItem.displayName = "NotificationItem";
+
+const styles = StyleSheet.create({
+  notificationItem: {
+    borderBottom: "1px solid black",
+    fontSize: "20px",
+    padding: "10px 8px",
+    listStyleType: "none"
+  }
+})
 
 export default NotificationItem;

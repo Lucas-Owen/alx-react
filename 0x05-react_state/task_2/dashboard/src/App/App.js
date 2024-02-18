@@ -29,7 +29,7 @@ class App extends React.Component {
   constructor (props) {
     super(props);
     this.keyPressed = this.keyPressed.bind(this);
-    this.state = { displayDrawer:false }; // Browser warning when assigning directly
+    this.state = { displayDrawer:false };
 
     this.handleHideDrawer = this.handleHideDrawer.bind(this);
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
@@ -48,7 +48,7 @@ class App extends React.Component {
       e.preventDefault();
       e.stopPropagation();
       alert("Logging you out");
-      this.state.logOut();
+      this.props.logOut();
     }
   }
   componentDidMount () {

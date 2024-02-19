@@ -8,7 +8,6 @@ export default class Login extends React.Component {
     this.state = {
       email: "",
       password: "",
-      isLoggedIn: false,
       enableSubmit: false,
     };
     this.validateForm = this.validateForm.bind(this);
@@ -17,9 +16,10 @@ export default class Login extends React.Component {
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
   }
+
   handleLoginSubmit (event) {
     event.preventDefault();
-    this.setState({ isLoggedIn: true });
+    this.props.logIn(this.state.email, this.state.password);
   }
 
   validateForm () {

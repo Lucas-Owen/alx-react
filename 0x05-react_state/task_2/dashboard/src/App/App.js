@@ -7,6 +7,8 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import CourseList from '../CourseList/CourseList';
 
+import AppContext, { defautlLogOut, defaultUser } from "./AppContext";
+
 
 import { StyleSheet, css } from "aphrodite";
 import { getLatestNotification } from '../utils/utils';
@@ -29,10 +31,21 @@ class App extends React.Component {
   constructor (props) {
     super(props);
     this.keyPressed = this.keyPressed.bind(this);
-    this.state = { displayDrawer:false };
+    this.state = { displayDrawer: false, user: {...defaultUser}, logOut: this.logOut };
 
     this.handleHideDrawer = this.handleHideDrawer.bind(this);
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
+
+    this.logIn = this.logIn.bind(this);
+    this.logOut = this.logOut.bind(this);
+  }
+
+  logIn (email, password) {
+    this.setState({ user: { email, password, isLoggedIn: true } });
+  }
+
+  logOut () {
+    this.setState({ user: { email: "", password: "" } });
   }
 
   handleHideDrawer () {
@@ -59,7 +72,7 @@ class App extends React.Component {
   }
   render () {
     return (
-      <>
+      <AppContext.Provider value={{user: this.state.user, logOut: this.logOut}}>
         <Notifications displayDrawer={this.state.displayDrawer}
           handleDisplayDrawer={this.handleDisplayDrawer}
           handleHideDrawer={this.handleHideDrawer}
@@ -68,13 +81,13 @@ class App extends React.Component {
           <Header />
           <div className={css(styles["App-body"])}>
             {
-              this.state.isLoggedIn ?
+              this.state.user.isLoggedIn ?
                 <BodySectionWithMarginBottom title={"Course list"}>
                   <CourseList listCourses={listCourses} />
                 </BodySectionWithMarginBottom>
                 :
                 <BodySectionWithMarginBottom title={"Log in to continue"}>
-                  <Login />
+                  <Login logIn={this.logIn} />
                 </BodySectionWithMarginBottom>
             }
             <BodySection title={"News from the School"}>
@@ -83,19 +96,16 @@ class App extends React.Component {
           </div>
           <Footer />
         </div>
-      </>
+      </AppContext.Provider>
     );
   }
 }
 
 App.propTypes = {
-  isLoggedIn: PropTypes.bool,
-  logOut: PropTypes.func
 };
 
 App.defaultProps = {
-  isLoggedIn: false,
-  logOut: () => {}
+  logOut: ()=>{}
 };
 
 App.displayName = "App";

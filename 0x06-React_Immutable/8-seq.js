@@ -8,4 +8,4 @@ function printBestStudents (grades) {
     .forEach((v) => console.log(v));
 }
 
-module.exports = printBestStudents;
+export default printBestStudents;

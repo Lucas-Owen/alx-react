@@ -1,4 +1,4 @@
-const { fromJS } = require('immutable');
+import { fromJS } from 'immutable';
 
 export function getListObject (array) {
   return fromJS(array);

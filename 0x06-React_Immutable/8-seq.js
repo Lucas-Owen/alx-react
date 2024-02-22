@@ -1,4 +1,4 @@
-const { Seq } = require('immutable');
+import { Seq } from 'immutable';
 
 function printBestStudents (grades) {
   Seq(grades).filter((v) => v.score >= 70)

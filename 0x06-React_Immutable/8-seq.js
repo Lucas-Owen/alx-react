@@ -1,8 +1,16 @@
 import { Seq } from 'immutable';
 
 export default function printBestStudents (grades) {
+  const res = {};
+
   Seq(grades).filter((v) => v.score >= 70)
-    .map(
-      v => `${v.firstName[0].toUpperCase()}${v.firstName.slice(1)} ${v.lastName[0].toUpperCase()}${v.lastName.slice(1)}`)
-    .forEach((v) => console.log(v));
+    .forEach((v, k) => {
+      res[k] = {
+        ...v,
+        firstName: `${v.firstName[0].toUpperCase()}${v.firstName.slice(1)}`,
+        lastName: `${v.lastName[0].toUpperCase()}${v.lastName.slice(1)}`
+      };
+    });
+
+  console.log(res);
 }

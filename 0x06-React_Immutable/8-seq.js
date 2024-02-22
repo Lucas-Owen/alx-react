@@ -1,5 +1,4 @@
-const { Seq } = require("immutable");
-const { moduleExpression } = require("../../../../.cache/typescript/5.3/node_modules/@babel/types/lib/index");
+const { Seq } = require('immutable');
 
 function printBestStudents (grades) {
   Seq(grades).filter((v) => v.score >= 70)

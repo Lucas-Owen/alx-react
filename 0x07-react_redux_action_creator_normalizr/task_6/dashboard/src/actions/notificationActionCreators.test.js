@@ -1,8 +1,8 @@
 import { describe, it, expect } from "@jest/globals";
 import { markAsRead, setNotificationFilter } from "./notificationActionCreators";
-import { MARK_AS_READ, SET_TYPE_FILTER, NotificationTypeFilters } from "./notificationActionTypes";
+import { MARK_AS_READ, SET_TYPE_FILTER, NotificationTypeFilters } from "../../../../task_5/dashboard/src/actions/notificationActionTypes";
 
-describe("Test for markAsRead action creator", () => {
+describe("Test for markAsRead action creatosdr", () => {
 	it("should return an action with type MARK_AS_READ and index passed in", () => {
 		const index = 1;
 		expect(markAsRead(index)).toEqual({

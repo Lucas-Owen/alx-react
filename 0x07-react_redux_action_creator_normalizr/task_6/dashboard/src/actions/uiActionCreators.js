@@ -1,0 +1,17 @@
+import { DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER, LOGIN, LOGOUT } from "./uiActionTypes";
+
+export function login (email, password) {
+  return { type: LOGIN, user: { email, password } };
+}
+
+export function logout () {
+  return { type: LOGOUT };
+}
+
+export function displayNotificationsDrawer () {
+  return { type: DISPLAY_NOTIFICATION_DRAWER };
+}
+
+export function hideNotificationsDrawer () {
+  return { type: HIDE_NOTIFICATION_DRAWER };
+}

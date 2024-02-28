@@ -1,0 +1,48 @@
+import { describe, it, expect, jest } from '@jest/globals';
+import { displayNotificationDrawer, hideNotificationDrawer, login, loginRequest, logout } from './uiActionCreators';
+import { DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER, LOGIN, LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT } from './uiActionTypes';
+
+
+import configureStore from 'redux-mock-store';
+
+jest.mock('node-fetch', () => require('fetch-mock-jest').sandbox());
+const fetchMock = require('node-fetch');
+
+describe("Test for login", () => {
+  it("should return an object with type LOGIN and user", () => {
+    const email = 'nobody@domain.com';
+    const password = 'password';
+    expect(login(email, password)).toEqual({ type: LOGIN, user: { email, password } });
+  });
+});
+
+describe("Test for logout, displayNotificationsDrawer, hideNotificationsDrawer", () => {
+  it("should return an object with appropriate type", () => {
+    expect(logout()).toEqual({ type: LOGOUT });
+    expect(displayNotificationDrawer()).toEqual({ type: DISPLAY_NOTIFICATION_DRAWER });
+    expect(hideNotificationDrawer()).toEqual({ type: HIDE_NOTIFICATION_DRAWER });
+  });
+});
+
+describe("Test for loginRequest action", () => {
+  afterEach(() => {
+    fetchMock.restore();
+  });
+  const mockStore = configureStore();
+  const email = 'email@domain.com';
+  const password = 'pasWord?';
+  it("should dispatch LOGIN and LOGIN_SUCCESS when request succeeds", async () => {
+    const store = mockStore({});
+    fetchMock.get("http://localhost:8564/login-success.json", { status: 200 });
+    await loginRequest(email, password)(store.dispatch);
+    const actionsReceived = store.getActions();
+    expect(actionsReceived).toEqual([{ type: LOGIN, user: { email, password } }, { type: LOGIN_SUCCESS }]);
+  });
+  it("should dispatch LOGIN and LOGIN_FAILURE when request fails", async () => {
+    const store = mockStore({});
+    fetchMock.get("http://localhost:8564/login-success.json", { status: 403 });
+    await loginRequest(email, password)(store.dispatch);
+    const actionsReceived = store.getActions();
+    expect(actionsReceived).toEqual([{ type: LOGIN, user: { email, password } }, { type: LOGIN_FAILURE }]);
+  });
+});

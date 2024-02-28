@@ -8,10 +8,18 @@ export function logout () {
   return { type: LOGOUT };
 }
 
-export function displayNotificationsDrawer () {
+export function displayNotificationDrawer () {
   return { type: DISPLAY_NOTIFICATION_DRAWER };
 }
 
-export function hideNotificationsDrawer () {
+export function hideNotificationDrawer () {
   return { type: HIDE_NOTIFICATION_DRAWER };
 }
+
+export const boundLogin = (email, password) => dispatch(login(email, password));
+
+export const boundLogout = () => dispatch(logout());
+
+export const boundDisplayNotificationDrawer = () => dispatch(displayNotificationDrawer());
+
+export const boundHideNotificationDrawer = () => dispatch(hideNotificationDrawer());

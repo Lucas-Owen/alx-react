@@ -1,5 +1,5 @@
 import { describe, it, expect } from '@jest/globals';
-import { displayNotificationsDrawer, hideNotificationsDrawer, login, logout } from './uiActionCreators';
+import { displayNotificationDrawer, hideNotificationDrawer, login, logout } from './uiActionCreators';
 import { DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER, LOGIN, LOGOUT } from './uiActionTypes';
 
 describe("Test for login", () => {
@@ -13,7 +13,7 @@ describe("Test for login", () => {
 describe("Test for logout, displayNotificationsDrawer, hideNotificationsDrawer", () => {
   it("should return an object with appropriate type", () => {
     expect(logout()).toEqual({ type: LOGOUT });
-    expect(displayNotificationsDrawer()).toEqual({ type: DISPLAY_NOTIFICATION_DRAWER });
-    expect(hideNotificationsDrawer()).toEqual({ type: HIDE_NOTIFICATION_DRAWER });
+    expect(displayNotificationDrawer()).toEqual({ type: DISPLAY_NOTIFICATION_DRAWER });
+    expect(hideNotificationDrawer()).toEqual({ type: HIDE_NOTIFICATION_DRAWER });
   });
 });

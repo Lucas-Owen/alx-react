@@ -6,3 +6,7 @@ export function selectCourse (index) {
 export function unselectCourse (index) {
   return { type: UNSELECT_COURSE, index };
 }
+
+export const boundSelectCourse = (index) => dispatch(selectCourse(index));
+
+export const boundUnSelectCourse = (index) => dispatch(unSelectCourse(index));

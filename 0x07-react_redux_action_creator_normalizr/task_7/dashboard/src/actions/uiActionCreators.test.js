@@ -3,10 +3,9 @@ import { displayNotificationDrawer, hideNotificationDrawer, login, loginRequest,
 import { DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER, LOGIN, LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT } from './uiActionTypes';
 
 
-import configureStore from 'redux-mock-store';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 
-jest.mock('node-fetch', () => require('fetch-mock-jest').sandbox());
-const fetchMock = require('node-fetch');
 
 describe("Test for login", () => {
   it("should return an object with type LOGIN and user", () => {
@@ -24,25 +23,31 @@ describe("Test for logout, displayNotificationsDrawer, hideNotificationsDrawer",
   });
 });
 
+jest.mock('node-fetch', () => require('fetch-mock-jest').sandbox());
+const fetchMock = require('node-fetch');
+const middlewares = [thunk]
+const mockStore = configureMockStore(middlewares);
+
 describe("Test for loginRequest action", () => {
   afterEach(() => {
     fetchMock.restore();
   });
-  const mockStore = configureStore();
   const email = 'email@domain.com';
   const password = 'pasWord?';
-  it("should dispatch LOGIN and LOGIN_SUCCESS when request succeeds", async () => {
+  it("should dispatch LOGIN and LOGIN_SUCCESS when request succeeds", () => {
     const store = mockStore({});
     fetchMock.get("http://localhost:8564/login-success.json", { status: 200 });
-    await loginRequest(email, password)(store.dispatch);
-    const actionsReceived = store.getActions();
-    expect(actionsReceived).toEqual([{ type: LOGIN, user: { email, password } }, { type: LOGIN_SUCCESS }]);
+    return store.dispatch(loginRequest(email, password)).then(() => {
+      const actionsReceived = store.getActions();
+      expect(actionsReceived).toEqual([{ type: LOGIN, user: { email, password } }, { type: LOGIN_SUCCESS }]);
+    });
   });
-  it("should dispatch LOGIN and LOGIN_FAILURE when request fails", async () => {
+  it("should dispatch LOGIN and LOGIN_FAILURE when request fails", () => {
     const store = mockStore({});
     fetchMock.get("http://localhost:8564/login-success.json", { status: 403 });
-    await loginRequest(email, password)(store.dispatch);
-    const actionsReceived = store.getActions();
-    expect(actionsReceived).toEqual([{ type: LOGIN, user: { email, password } }, { type: LOGIN_FAILURE }]);
+    return store.dispatch(loginRequest(email, password)).then(() => {
+      const actionsReceived = store.getActions();
+      expect(actionsReceived).toEqual([{ type: LOGIN, user: { email, password } }, { type: LOGIN_FAILURE }]);
+    });
   });
 });

@@ -3,9 +3,13 @@ import { displayNotificationDrawer, hideNotificationDrawer, login, loginRequest,
 import { DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER, LOGIN, LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT } from './uiActionTypes';
 
 
-import configureMockStore from 'redux-mock-store';
+import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
+jest.mock('node-fetch', () => require('fetch-mock-jest').sandbox());
+const fetchMock = require('node-fetch');
+const middlewares = [thunk]
+const mockStore = configureStore(middlewares);
 
 describe("Test for login", () => {
   it("should return an object with type LOGIN and user", () => {
@@ -23,10 +27,6 @@ describe("Test for logout, displayNotificationsDrawer, hideNotificationsDrawer",
   });
 });
 
-jest.mock('node-fetch', () => require('fetch-mock-jest').sandbox());
-const fetchMock = require('node-fetch');
-const middlewares = [thunk]
-const mockStore = configureMockStore(middlewares);
 
 describe("Test for loginRequest action", () => {
   afterEach(() => {

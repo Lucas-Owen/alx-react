@@ -4,11 +4,11 @@ import { DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER, LOGIN, LOGIN_FAI
 
 
 import configureStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
+import { thunk } from 'redux-thunk';
 
 jest.mock('node-fetch', () => require('fetch-mock-jest').sandbox());
 const fetchMock = require('node-fetch');
-const middlewares = [thunk]
+const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 describe("Test for login", () => {
@@ -37,17 +37,19 @@ describe("Test for loginRequest action", () => {
   it("should dispatch LOGIN and LOGIN_SUCCESS when request succeeds", () => {
     const store = mockStore({});
     fetchMock.get("http://localhost:8564/login-success.json", { status: 200 });
-    return store.dispatch(loginRequest(email, password)).then(() => {
-      const actionsReceived = store.getActions();
-      expect(actionsReceived).toEqual([{ type: LOGIN, user: { email, password } }, { type: LOGIN_SUCCESS }]);
-    });
+    return store.dispatch(loginRequest(email, password))
+      .then(() => {
+        const actionsReceived = store.getActions();
+        expect(actionsReceived).toEqual([{ type: LOGIN, user: { email, password } }, { type: LOGIN_SUCCESS }]);
+      });
   });
   it("should dispatch LOGIN and LOGIN_FAILURE when request fails", () => {
     const store = mockStore({});
     fetchMock.get("http://localhost:8564/login-success.json", { status: 403 });
-    return store.dispatch(loginRequest(email, password)).then(() => {
-      const actionsReceived = store.getActions();
-      expect(actionsReceived).toEqual([{ type: LOGIN, user: { email, password } }, { type: LOGIN_FAILURE }]);
-    });
+    return store.dispatch(loginRequest(email, password))
+      .then(() => {
+        const actionsReceived = store.getActions();
+        expect(actionsReceived).toEqual([{ type: LOGIN, user: { email, password } }, { type: LOGIN_FAILURE }]);
+      });
   });
 });

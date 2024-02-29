@@ -19,16 +19,14 @@ export function loginFailure () {
 
 export function loginRequest (email, password) {
   return async (dispatch) => {
-    boundLogin(email, password);
-    const action = await fetch("http://localhost:8564/login-success.json")
+    dispatch(boundLogin(email, password));
+    return await fetch("http://localhost:8564/login-success.json")
       .then((response) => {
-        return response.status == 200? loginSuccess(): loginFailure();
+        return response.status == 200? dispatch(loginSuccess()): dispatch(loginFailure());
       })
       .catch(error => {
-        return loginFailure();
+        return dispatch(loginFailure());
       });
-    dispatch(action);
-    return action;
   };
 }
 
@@ -40,10 +38,10 @@ export function hideNotificationDrawer () {
   return { type: HIDE_NOTIFICATION_DRAWER };
 }
 
-export const boundLogin = (email, password) => dispatch(login(email, password));
+export const boundLogin = (email, password) => (dispatch) => dispatch(login(email, password));
 
-export const boundLogout = () => dispatch(logout());
+export const boundLogout = (dispatch) => dispatch(logout());
 
-export const boundDisplayNotificationDrawer = () => dispatch(displayNotificationDrawer());
+export const boundDisplayNotificationDrawer = (dispatch) => dispatch(displayNotificationDrawer());
 
-export const boundHideNotificationDrawer = () => dispatch(hideNotificationDrawer());
+export const boundHideNotificationDrawer = (dispatch) => dispatch(hideNotificationDrawer());

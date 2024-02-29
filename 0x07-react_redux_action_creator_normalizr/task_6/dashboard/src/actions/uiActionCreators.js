@@ -16,10 +16,10 @@ export function hideNotificationDrawer () {
   return { type: HIDE_NOTIFICATION_DRAWER };
 }
 
-export const boundLogin = (email, password) => dispatch(login(email, password));
+export const boundLogin = (email, password) => (dispatch) => dispatch(login(email, password));
 
-export const boundLogout = () => dispatch(logout());
+export const boundLogout = (dispatch) => dispatch(logout());
 
-export const boundDisplayNotificationDrawer = () => dispatch(displayNotificationDrawer());
+export const boundDisplayNotificationDrawer = (dispatch) => dispatch(displayNotificationDrawer());
 
-export const boundHideNotificationDrawer = () => dispatch(hideNotificationDrawer());
+export const boundHideNotificationDrawer = (dispatch) => dispatch(hideNotificationDrawer());

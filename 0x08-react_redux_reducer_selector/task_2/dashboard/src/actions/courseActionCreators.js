@@ -1,4 +1,4 @@
-import { SELECT_COURSE, UNSELECT_COURSE } from "./courseActionTypes";
+import { FETCH_COURSE_SUCCESS, SELECT_COURSE, UNSELECT_COURSE } from "./courseActionTypes";
 
 export function selectCourse (index) {
   return { type: SELECT_COURSE, index };
@@ -6,7 +6,10 @@ export function selectCourse (index) {
 export function unSelectCourse (index) {
   return { type: UNSELECT_COURSE, index };
 }
+export function fetchCourseSuccess(data) {
+  return { type: FETCH_COURSE_SUCCESS, data};
+}
 
-export const boundSelectCourse = (index) => dispatch(selectCourse(index));
+export const boundSelectCourse = (index) => dispatch => dispatch(selectCourse(index));
 
-export const boundUnSelectCourse = (index) => dispatch(unSelectCourse(index));
+export const boundUnSelectCourse = (index) => dispatch => dispatch(unSelectCourse(index));

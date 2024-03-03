@@ -20,3 +20,7 @@ notification.define({
 });
 
 export const normalizedNotifications = normalize(notifications, [notification]);
+
+export function notificationNormalizer(data) {
+  return normalize(data);
+}

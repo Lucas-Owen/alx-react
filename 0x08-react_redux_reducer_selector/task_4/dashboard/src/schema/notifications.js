@@ -8,7 +8,7 @@ export function getAllNotificationsByUser (userId) {
   return denormalize(mesgIds, [message], normalizedNotifications.entities)
 }
 
-const notification = new schema.Entity('notifications');
+export const notification = new schema.Entity('notifications');
 const user = new schema.Entity('users');
 const message = new schema.Entity('messages', {}, {
   idAttribute: obj => obj.guid
@@ -22,5 +22,5 @@ notification.define({
 export const normalizedNotifications = normalize(notifications, [notification]);
 
 export function notificationNormalizer(data) {
-  return normalize(data);
+  return normalize(data, [notification]);
 }

@@ -4,11 +4,13 @@ import App from './App/App';
 import "./index.css";
 
 import { listNotifications } from './utils/utils';
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { Provider } from 'react-redux';
 import { UIReducer } from './reducers/uiReducer';
+import { thunk } from "redux-thunk";
 
-const store = createStore(UIReducer);
+const middlewares = applyMiddleware(thunk)
+const store = createStore(UIReducer, middlewares);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

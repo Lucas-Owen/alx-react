@@ -86,6 +86,6 @@ describe("Test that mapStateToProps returns the right object", ()=>{
       isUserLoggedIn: true,
       isNotificationDrawerVisible: false
     });
-    expect(mapStateToProps(state)).toEqual({isUserLoggedIn: true, displayDrawer: false});
+    expect(mapStateToProps(state)).toEqual({isLoggedIn: true, displayDrawer: false});
   })
 })

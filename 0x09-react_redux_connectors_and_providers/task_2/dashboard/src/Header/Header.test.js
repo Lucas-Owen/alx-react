@@ -1,18 +1,15 @@
-/**
- * @jest-environment jsdom
- */
 import React from "react";
-import Header from "./Header";
+import { Header } from "./Header";
 
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import { describe, it, expect, jest } from "@jest/globals";
 
 import { StyleSheetTestUtils } from "aphrodite";
-import AppContext from "../App/AppContext";
+import AppContext, { defaultUser } from "../App/AppContext";
 StyleSheetTestUtils.suppressStyleInjection();
 
 describe("Test that Header renders without crashing", () => {
-  const wrapper = shallow(<Header />);
+  const wrapper = shallow(<Header user={{...defaultUser}}/>);
   it("should render successfully", () => {
     expect(wrapper.hasClass("App-header")).toBeTruthy();
   });
@@ -25,17 +22,17 @@ describe("Test that Header renders without crashing", () => {
 });
 
 describe("Test that Header interprets context as expected", () => {
-  it("should not create logOutSection with a default context value", () => {
-    const wrapper = mount(<Header />);
+  it("should not create logOutSection when user is not logged in", () => {
+    const wrapper = shallow(<Header user={{...defaultUser}}/>);
     expect(wrapper.find("#logoutSection").length).toBe(0);
   });
-  it("should render logOutSection with valid user context", () => {
-    const wrapper = mount(<AppContext.Provider value={{ user: { email: "email@domain.com", password: "pass", isLoggedIn: true }, logOut: () => {} }}><Header /></AppContext.Provider>);
+  it("should render logOutSection when user is logged in", () => {
+    const wrapper = shallow(<Header user={{...defaultUser, isLoggedIn: true}}/>);
     expect(wrapper.find("#logoutSection").length).toBe(1);
   });
   it("should call logOut funciton when logout link is clicked", () => {
     const logOutMock = jest.fn();
-    const wrapper = mount(<AppContext.Provider value={{ user: { email: "email@domain.com", password: "pass", isLoggedIn: true }, logOut: logOutMock.mockImplementation() }}><Header /></AppContext.Provider>);
+    const wrapper = shallow(<Header user={{...defaultUser, isLoggedIn: true}} logout={logOutMock.mockImplementation()}/>);
     wrapper.find("a").simulate("click");
     expect(logOutMock).toBeCalled();
   });

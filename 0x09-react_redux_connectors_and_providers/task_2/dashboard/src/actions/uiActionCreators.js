@@ -20,9 +20,9 @@ export function loginFailure () {
 export function loginRequest (email, password) {
   return async (dispatch) => {
     dispatch(boundLogin(email, password));
-    return await fetch("http://localhost:8564/login-success.json")
+    return await fetch("http://localhost:8654/login-success.json")
       .then((response) => {
-        return response.status == 200? dispatch(loginSuccess()): dispatch(loginFailure());
+        return response.status < 400? dispatch(loginSuccess()): dispatch(loginFailure());
       })
       .catch(error => {
         return dispatch(loginFailure());

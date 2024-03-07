@@ -36,7 +36,7 @@ describe("Test for loginRequest action", () => {
   const password = 'pasWord?';
   it("should dispatch LOGIN and LOGIN_SUCCESS when request succeeds", () => {
     const store = mockStore({});
-    fetchMock.get("http://localhost:8564/login-success.json", { status: 200 });
+    fetchMock.get("http://localhost:8654/login-success.json", { status: 200 });
     return store.dispatch(loginRequest(email, password))
       .then(() => {
         const actionsReceived = store.getActions();
@@ -45,7 +45,7 @@ describe("Test for loginRequest action", () => {
   });
   it("should dispatch LOGIN and LOGIN_FAILURE when request fails", () => {
     const store = mockStore({});
-    fetchMock.get("http://localhost:8564/login-success.json", { status: 403 });
+    fetchMock.get("http://localhost:8654/login-success.json", { status: 403 });
     return store.dispatch(loginRequest(email, password))
       .then(() => {
         const actionsReceived = store.getActions();

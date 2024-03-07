@@ -95,7 +95,7 @@ class App extends React.Component {
 App.propTypes = {
   listNotifications: PropTypes.array,
   displayDrawer: PropTypes.bool,
-  isUserLoggedIn: PropTypes.bool,
+  isLoggedIn: PropTypes.bool,
   displayNotificationDrawer: PropTypes.func,
   hideNotificationDrawer: PropTypes.func
 };
@@ -103,7 +103,7 @@ App.propTypes = {
 App.defaultProps = {
   listNotifications: [],
   displayDrawer: false,
-  isUserLoggedIn: false,
+  isLoggedIn: false,
   displayNotificationDrawer: () => {},
   hideNotificationDrawer: () => {},
   logOut: () => {}
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
 
 export function mapStateToProps (state) {
   return {
-    isUserLoggedIn: state.get("isUserLoggedIn"),
+    isLoggedIn: state.get("isUserLoggedIn"),
     displayDrawer: state.get("isNotificationDrawerVisible")
   };
 }

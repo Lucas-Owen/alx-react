@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
 });
 
 export function mapStateToProps (state) {
-  return { isUserLoggedIn: state.get("isUserLoggedIn") };
+  return { isLoggedIn: state.get("isUserLoggedIn") };
 }
 
 export const connectedApp = connect(mapStateToProps)(App);

@@ -9,7 +9,7 @@ import Header from "../Header/Header";
 import Login from "../Login/Login";
 import Footer from "../Footer/Footer";
 
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import { it, describe, expect, jest } from "@jest/globals";
 import CourseList from "../CourseList/CourseList";
 
@@ -35,37 +35,7 @@ describe("Test that App renders without crashing", function () {
   it("should not contain the CourseList component", function () {
     expect(wrapper.containsMatchingElement(<CourseList />)).toBeFalsy();
   });
-  it("should contain a prop displayDrawer=false", () => {
-    expect(wrapper.state().displayDrawer).toBe(false);
-  });
 });
-
-describe("Test for logIn", () => {
-  it("should change the state to the current user", () => {
-    const wrapper = mount(<App />);
-    expect(wrapper.state().user.isLoggedIn).toBe(false);
-    act(() => { wrapper.instance().logIn('email', 'password'); });
-    expect(wrapper.state().user.isLoggedIn).toBe(true);
-  });
-});
-
-describe("Test when App receives ctrl+h", () => {
-  afterAll(() => {
-    jest.restoreAllMocks();
-  });
-  const wrapper = mount(<App />);
-  const event = new KeyboardEvent("keydown", { key: "h", ctrlKey: true });
-  const alertMock = jest.spyOn(window, "alert");
-  alertMock.mockImplementation((message) => {});
-  document.dispatchEvent(event);
-
-  it("should call logOut", () => {
-    expect(wrapper.state().user.isLoggedIn).toBe(false);
-  });
-  it("should call alert with the string 'Logging you out'", () => {
-    expect(alertMock).toBeCalledWith("Logging you out");
-  });
-})
 
 describe("Test for markNotificationAsRead", ()=>{
   it("should remove a notification with the specified id when called", ()=>{
@@ -86,6 +56,6 @@ describe("Test that mapStateToProps returns the right object", ()=>{
       isUserLoggedIn: true,
       isNotificationDrawerVisible: false
     });
-    expect(mapStateToProps(state)).toEqual({isUserLoggedIn: true, displayDrawer: false});
+    expect(mapStateToProps(state)).toEqual({isLoggedIn: true, displayDrawer: false});
   })
 })

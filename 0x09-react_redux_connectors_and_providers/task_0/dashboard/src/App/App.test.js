@@ -93,6 +93,6 @@ describe("Test that mapStateToProps returns the right object", ()=>{
     let state = fromJS({
       isUserLoggedIn: true
     });
-    expect(mapStateToProps(state)).toEqual({isUserLoggedIn: true});
+    expect(mapStateToProps(state)).toEqual({isLoggedIn: true});
   })
 })

@@ -3,7 +3,7 @@
  */
 import React from "react";
 import { act } from 'react-dom/test-utils';
-import App from "./App";
+import App, { mapStateToProps } from "./App";
 import Notifications from "../Notifications/Notifications";
 import Header from "../Header/Header";
 import Login from "../Login/Login";
@@ -12,6 +12,8 @@ import Footer from "../Footer/Footer";
 import { shallow, mount } from "enzyme";
 import { it, describe, expect, jest } from "@jest/globals";
 import CourseList from "../CourseList/CourseList";
+
+import { fromJS } from "immutable";
 
 
 describe("Test that App renders without crashing", function () {
@@ -83,5 +85,14 @@ describe("Test for markNotificationAsRead", ()=>{
       wrapper.instance().markNotificationAsRead(1);
     })
     expect(wrapper.state().listNotifications.length).toBe(originalNotificationsLength-1);
+  })
+})
+
+describe("Test that mapStateToProps returns the right object", ()=>{
+  it("should return the correct object when it receives a map", ()=>{
+    let state = fromJS({
+      isUserLoggedIn: true
+    });
+    expect(mapStateToProps(state)).toEqual({isUserLoggedIn: true});
   })
 })

@@ -11,10 +11,11 @@ import AppContext, { defautlLogOut, defaultUser } from "./AppContext";
 
 
 import { StyleSheet, css } from "aphrodite";
-import { getLatestNotification } from '../utils/utils';
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
 import BodySection from '../BodySection/BodySection';
 import { listCourses } from "../utils/utils";
+
+import { connect } from "react-redux";
 
 class App extends React.Component {
   constructor (props) {
@@ -76,7 +77,7 @@ class App extends React.Component {
           handleDisplayDrawer={this.handleDisplayDrawer}
           handleHideDrawer={this.handleHideDrawer}
           listNotifications={this.state.listNotifications}
-          markNotificationAsRead={this.markNotificationAsRead}/>
+          markNotificationAsRead={this.markNotificationAsRead} />
         <div className={css(styles["App"])}>
           <Header />
           <div className={css(styles["App-body"])}>
@@ -123,5 +124,11 @@ const styles = StyleSheet.create({
     marginLeft: "2.1rem"
   }
 });
+
+export function mapStateToProps (state) {
+  return { isUserLoggedIn: state.get("isUserLoggedIn") };
+}
+
+export const connectedApp = connect(mapStateToProps)(App);
 
 export default App;

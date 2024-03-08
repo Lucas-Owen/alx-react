@@ -6,9 +6,9 @@ import "./index.css";
 import { listNotifications } from './utils/utils';
 import { createStore } from "redux";
 import { Provider } from 'react-redux';
-import { UIReducer } from './reducers/uiReducer';
+import { uiReducer } from './reducers/uiReducer';
 
-const store = createStore(UIReducer);
+const store = createStore(uiReducer);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

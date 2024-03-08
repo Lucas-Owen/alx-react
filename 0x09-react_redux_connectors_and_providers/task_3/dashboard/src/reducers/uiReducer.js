@@ -7,7 +7,7 @@ export const initialState = new Map({
   user: null
 });
 
-export function UIReducer (state = initialState, action) {
+export function uiReducer (state = initialState, action) {
   const stateMap = new Map(state);
   if (!action) return state;
   switch (action.type) {

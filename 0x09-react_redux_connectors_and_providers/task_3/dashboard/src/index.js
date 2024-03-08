@@ -7,12 +7,12 @@ import { listNotifications } from './utils/utils';
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { Provider } from 'react-redux';
-import { UIReducer } from './reducers/uiReducer';
+import { uiReducer } from './reducers/uiReducer';
 import { thunk } from "redux-thunk";
 
 const middlewares = applyMiddleware(thunk);
 const enhancers = composeWithDevTools(middlewares);
-const store = createStore(UIReducer, enhancers);
+const store = createStore(uiReducer, enhancers);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

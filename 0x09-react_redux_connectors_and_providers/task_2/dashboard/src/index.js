@@ -6,11 +6,11 @@ import "./index.css";
 import { listNotifications } from './utils/utils';
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from 'react-redux';
-import { UIReducer } from './reducers/uiReducer';
+import { uiReducer } from './reducers/uiReducer';
 import { thunk } from "redux-thunk";
 
 const middlewares = applyMiddleware(thunk)
-const store = createStore(UIReducer, middlewares);
+const store = createStore(uiReducer, middlewares);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

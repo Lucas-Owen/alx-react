@@ -2,7 +2,7 @@ import { FETCH_COURSE_SUCCESS, SELECT_COURSE, UNSELECT_COURSE } from "../actions
 import { Map } from "immutable";
 import courseNormalizer, { course } from "../schema/courses";
 
-export const initialState = new Map();
+export const initialState = Map();
 
 export function courseReducer (state = initialState, action) {
   if (!action) return state;

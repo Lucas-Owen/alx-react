@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import App from './App/App';
 import "./index.css";
 
-import { listNotifications } from './utils/utils';
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { Provider } from 'react-redux';
@@ -18,7 +17,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App listNotifications={listNotifications} />
+      <App />
     </Provider>
   </React.StrictMode>
 );

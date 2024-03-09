@@ -1,4 +1,4 @@
-import notifications from "../../../../notifications.json";
+import notifications from "../../dist/notifications.json";
 import { normalize, schema, denormalize } from 'normalizr';
 
 export function getAllNotificationsByUser (userId) {

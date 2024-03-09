@@ -37,18 +37,18 @@ describe("Test that App renders without crashing", function () {
   });
 });
 
-describe("Test for markNotificationAsRead", () => {
-  it("should remove a notification with the specified id when called", () => {
-    const notifications = [{ id: 1, type: "priority-default", value: "New course available" }];
-    const wrapper = shallow(<App listNotifications={notifications} />);
-    const originalNotificationsLength = notifications.length;
-    expect(wrapper.state().listNotifications.length).toBe(originalNotificationsLength);
-    act(() => {
-      wrapper.instance().markNotificationAsRead(1);
-    });
-    expect(wrapper.state().listNotifications.length).toBe(originalNotificationsLength - 1);
-  });
-});
+// describe("Test for markNotificationAsRead", () => {
+//   it("should remove a notification with the specified id when called", () => {
+//     const notifications = [{ id: 1, type: "priority-default", value: "New course available" }];
+//     const wrapper = shallow(<App listNotifications={notifications} />);
+//     const originalNotificationsLength = notifications.length;
+//     expect(wrapper.state().listNotifications.length).toBe(originalNotificationsLength);
+//     act(() => {
+//       wrapper.instance().markNotificationAsRead(1);
+//     });
+//     expect(wrapper.state().listNotifications.length).toBe(originalNotificationsLength - 1);
+//   });
+// });
 
 describe("Test that mapStateToProps returns the right object", () => {
   it("should return the correct object when it receives a map", () => {

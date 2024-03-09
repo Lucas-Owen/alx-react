@@ -2,24 +2,25 @@
  * @jest-environment jsdom
  */
 import React from "react";
-import Notification from "./Notifications";
+import { Notifications } from "./Notifications";
 
 import { shallow, mount } from "enzyme";
 import { describe, it, expect, jest } from "@jest/globals";
 import NotificationItem from "./NotificationItem";
 
 import { StyleSheetTestUtils } from "aphrodite";
+import { Seq } from "immutable";
 StyleSheetTestUtils.suppressStyleInjection();
 
 describe("Test that notifications renders without crashing", function () {
-  const wrapper = shallow(<Notification />);
+  const wrapper = shallow(<Notifications />);
   it("should render without crashing", function () {
-    expect(Notification).toBeDefined();
+    expect(Notifications).toBeDefined();
   });
 });
 
 describe("Test that Notifications interprets displayDrawer=false correctly", () => {
-  const wrapper = shallow(<Notification />);
+  const wrapper = shallow(<Notifications />);
   it("should render menuItem", () => {
     expect(wrapper.find(".menuItem")).toHaveLength(1);
   });
@@ -29,7 +30,7 @@ describe("Test that Notifications interprets displayDrawer=false correctly", () 
 });
 
 describe("Test that Notifications interprets displayDrawer=true correctly", () => {
-  const wrapper = shallow(<Notification displayDrawer={true} />);
+  const wrapper = shallow(<Notifications displayDrawer={true} />);
   it("should render menuItem", () => {
     expect(wrapper.find(".menuItem")).toHaveLength(1);
   });
@@ -37,37 +38,45 @@ describe("Test that Notifications interprets displayDrawer=true correctly", () =
     expect(wrapper.find("div.Notifications")).toHaveLength(1);
   });
   describe("Test that it renders the right number of notifications passed", () => {
-    it("should render the text 'No new notification for now' when no notification is available", function () {
+    it("should render the text 'No new notificationsNotifications for now' when no notificationsNotifications is available", function () {
       expect(wrapper.contains("No new notification for now")).toBeTruthy();
     });
-    it("should render the text 'Here is the list of notifications' when any notification is available", function () {
-      const notification = { id: 1, type: "priority-default", value: "New course available" };
-      const wrapper = shallow(<Notification displayDrawer={true} listNotifications={[notification]} />);
+    it("should render the text 'Here is the list of notifications' when any notificationsNotifications is available", function () {
+      const notifications = { guid: 1, type: "priority-default", value: "New course available" };
+      const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={Seq([notifications])} />);
       expect(wrapper.contains("Here is the list of notifications")).toBeTruthy();
     });
     it("should render an arbitrary number of notifications", function () {
       const notificationCount = Math.floor(Math.random() + 1 * 20);
-      const notifications = new Array(notificationCount).fill(undefined).map((_, idx) => { return { id: idx, type: "Test", value: "test" }; });
-      const wrapper = shallow(<Notification displayDrawer={true} listNotifications={notifications} />);
+      const notifications = new Array(notificationCount).fill(undefined).map((_, idx) => { return { guid: idx, type: "Test", value: "test" }; });
+      const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={Seq(notifications)} />);
       expect(wrapper.find(NotificationItem)).toHaveLength(notificationCount);
     });
   });
 });
 
-describe("Test that displaydrawer handlers are called properly", ()=>{
-  it("should call handleDisplayDrawer when menuItem is clicked", ()=>{
+describe("Test that displaydrawer handlers are called properly", () => {
+  it("should call handleDisplayDrawer when menuItem is clicked", () => {
     const displayDrawerMock = jest.fn();
-    const wrapper = shallow(<Notification handleDisplayDrawer={displayDrawerMock}/>);
-    wrapper.find(".menuItem").simulate("click")
+    const wrapper = shallow(<Notifications handleDisplayDrawer={displayDrawerMock} />);
+    wrapper.find(".menuItem").simulate("click");
     expect(displayDrawerMock).toBeCalled();
-  })
-  it("should call handleHideDrawer when .Notifications button is clicked", ()=>{
+  });
+  it("should call handleHideDrawer when .Notifications button is clicked", () => {
     const hideDrawerMock = jest.fn();
-    const wrapper = shallow(<Notification displayDrawer={true} handleHideDrawer={hideDrawerMock}/>);
-    wrapper.find(".Notifications button").simulate("click")
+    const wrapper = shallow(<Notifications displayDrawer={true} handleHideDrawer={hideDrawerMock} />);
+    wrapper.find(".Notifications button").simulate("click");
     expect(hideDrawerMock).toBeCalled();
-  })
-})
+  });
+});
+
+describe("Test that fetchNotifications is called when the component is mounted", () => {
+  it("should be called", () => {
+    const mockFn = jest.fn();
+    shallow(<Notifications fetchNotifications={mockFn} />);
+    expect(mockFn).toBeCalled();
+  });
+});
 
 
 describe("Test to mockup the console.log function", () => {
@@ -75,13 +84,13 @@ describe("Test to mockup the console.log function", () => {
     jest.resetAllMocks();
   });
   const notificationCount = Math.floor(Math.random() + 1 * 20);
-  const notifications = new Array(notificationCount).fill(undefined).map((_, idx) => { return { id: idx, type: "Test", value: "test" }; });
-  it("should send the id of the notification that is clicked", () => {
+  const notifications = new Array(notificationCount).fill(undefined).map((_, idx) => { return { guid: idx, type: "Test", value: "test" }; });
+  it("should send the id of the notificationsNotifications that is clicked", () => {
     const markNotificationAsRead = jest.fn();
-    const wrapper = mount(<Notification displayDrawer={true} listNotifications={notifications} markNotificationAsRead={markNotificationAsRead} />);
-    const notification = wrapper.find("li").get(Math.floor(Math.random() * 20));
-    notification.props.onClick();
-    expect(markNotificationAsRead).toBeCalledWith(notification.props.id);
+    const wrapper = mount(<Notifications displayDrawer={true} listNotifications={Seq(notifications)} markNotificationAsRead={markNotificationAsRead} />);
+    const notificationsNotifications = wrapper.find("li").get(Math.floor(Math.random() * 20));
+    notificationsNotifications.props.onClick();
+    expect(markNotificationAsRead).toBeCalledWith(notificationsNotifications.props.id);
   });
 });
 
@@ -92,7 +101,7 @@ describe("Test to mockup the console.log function", () => {
 //   const notificationCount = Math.floor(Math.random() + 1 * 20);
 //   const notifications = new Array(notificationCount).fill(undefined).map((_, idx) => { return { id: idx, type: "Test", value: "test" }; });
 //   const props = {listNotifications: notifications, displayDrawer: true};
-//   const wrapper = shallow(<Notification {...props} />);
+//   const wrapper = shallow(<Notifications {...props} />);
 //   it("should not rerender while updating the props with the same list", ()=>{
 //     const shouldUpdateSpy = jest.spyOn(wrapper.instance(), "shouldComponentUpdate");
 //     wrapper.setProps({listNotifications: notifications})

@@ -1,29 +1,34 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { StyleSheet, css } from "aphrodite/no-important";
+import { Map, Seq } from "immutable";
 
 import NotificationItem from "./NotificationItem";
-import NotificationItemShape from "./NotificationItemShape";
+import { fetchNotifications } from "../actions/notificationActionCreators";
 
-class Notifications extends React.PureComponent {
+export class Notifications extends React.PureComponent {
   constructor (props) {
     super(props);
+  }
+
+  componentDidMount () {
+    this.props.fetchNotifications();
   }
 
   render () {
 
     const { displayDrawer, listNotifications, handleDisplayDrawer, handleHideDrawer } = this.props;
-
     return (
       <>
         <div className={css(styles["all"], styles["menuItem"]) + " menuItem"} onClick={handleDisplayDrawer}>Your notifications</div>
         {displayDrawer ?
           <div className={css(styles["all"], styles["Notifications"]) + " Notifications"}>
-            {listNotifications.length ?
+            {listNotifications.size ?
               <>
-                <p>Here is the list of notifications</p>
+                <p className={css(styles["p"])}>Here is the list of notifications</p>
                 <ul>
-                  {listNotifications.map(notification => <NotificationItem key={notification.id} id={notification.id} {...notification} markAsRead={this.props.markNotificationAsRead} />)}
+                  {listNotifications.map(notification => <NotificationItem key={notification.guid} id={notification.guid} {...notification} markAsRead={this.props.markNotificationAsRead} />)}
                 </ul>
               </>
               :
@@ -43,16 +48,18 @@ class Notifications extends React.PureComponent {
 
 Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
-  listNotifications: PropTypes.arrayOf(NotificationItemShape),
+  listNotifications: PropTypes.object,
   handleDisplayDrawer: PropTypes.func,
   handleHideDrawer: PropTypes.func,
   markNotificationAsRead: PropTypes.func,
 };
 
 Notifications.defaultProps = {
-  listNotifications: [],
-  handleDisplayDrawer: () => {console.log("handleDisplayDrawer: NOT IMPLEMENTED")},
-  handleHideDrawer: () => {console.log("handleHideDrawer: NOT IMPLEMENTED")},
+  displayDrawer: false,
+  listNotifications: Seq(),
+  handleDisplayDrawer: () => { console.log("handleDisplayDrawer: NOT IMPLEMENTED"); },
+  handleHideDrawer: () => { console.log("handleHideDrawer: NOT IMPLEMENTED"); },
+  fetchNotifications: () => { console.log("fetchNotifications: NOT IMPLEMENTED"); }
 };
 
 Notifications.displayName = "Notifications";
@@ -73,7 +80,7 @@ const translateKeyFrames = {
   '100%': {
     transform: "translateY(0px)"
   }
-}
+};
 
 const opacityKeyFrames = {
   'from': {
@@ -82,13 +89,22 @@ const opacityKeyFrames = {
   'to': {
     opacity: 1
   }
-}
+};
 
 const styles = StyleSheet.create({
+  "p": {
+    position: "sticky",
+    top: 0,
+    backgroundColor: "white",
+    backgroundClip: "padding-box",
+    margin: 0,
+    padding: "20px 0",
+  },
   "all": {
     position: "absolute",
     right: "8px",
-    background: "white",
+    backgroundColor: "white",
+    backgroundClip: "padding-box",
 
     "--button-width": "15px",
     "--button-offset": "8px",
@@ -110,7 +126,7 @@ const styles = StyleSheet.create({
     marginBottom: "var(--menu-item-margin-bottom)",
     borderWidth: "var(--menu-item-border-width)",
     backgroundColor: "#fff8f8",
-    ":hover" : {
+    ":hover": {
       cursor: "pointer",
       animationName: [translateKeyFrames, opacityKeyFrames],
       animationDuration: '0.5s, 0.5s',
@@ -118,15 +134,16 @@ const styles = StyleSheet.create({
     }
   },
   "Notifications": {
-    padding: "var(--notifications-padding)",
+    padding: "0 var(--notifications-padding)",
     border: "var(--notifications-border-width) dotted var(--color-primary)",
     margin: "var(--notifications-margin)",
     borderRadius: "0.4rem",
-    // top: "calc(var(--menu-item-padding) + var(--menu-item-height) + var(--menu-item-margin-top) + var(--menu-item-margin-bottom) + var(--menu-item-border-width) + var(--notifications-margin) + var(--notifications-border-width))",
+    maxWidth: "500px",
+    overflowY: "scroll",
+    maxHeight: "500px",
     ":nth-child(1n) button": {
-      position: "absolute",
-      top: "var(--button-offset)",
-      right: "var(--button-offset)",
+      position: "sticky",
+      bottom: "calc(100% - var(--button-width) - var(--notifications-padding) - var(--notifications-margin) - var(--notifications-border-width))",
     },
     ":nth-child(1n) .close-icon": {
       width: "15px",
@@ -143,12 +160,25 @@ const styles = StyleSheet.create({
     },
     fontSize: "20px",
     "@media (max-width: 900px)": {
-        width: "95%",
-        right: "auto",
-        alignSelf: "center",
-        height: "100%"
+      maxWidth: "100%",
+      width: "95%",
+      right: "auto",
+      alignSelf: "center",
+      height: "95%",
     }
   }
 });
 
-export default Notifications;
+export function mapStateToProps (state) {
+  return {
+    listNotifications: Map(state.notifications.getIn(["notifications", "entities", "messages"])).valueSeq()
+  };
+}
+
+export const mapDispatchToProps = {
+  fetchNotifications: fetchNotifications
+};
+
+const ConnectedNotification = connect(mapStateToProps, mapDispatchToProps)(Notifications);
+
+export default ConnectedNotification;

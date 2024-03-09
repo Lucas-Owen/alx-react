@@ -1,6 +1,6 @@
 import { describe, it, expect } from "@jest/globals";
 import { initialState, notificationReducer } from "./notificationReducer";
-import { fetchNotificationSuccess, markAsRead, setNotificationFilter } from "../actions/notificationActionCreators";
+import { fetchNotificationSuccess, markAsRead, setLoadingState, setNotificationFilter } from "../actions/notificationActionCreators";
 import { NotificationTypeFilters } from "../actions/notificationActionTypes";
 import { denormalize } from "normalizr";
 import { notification } from "../schema/notifications";
@@ -33,11 +33,15 @@ describe("Test for notificationReducer", () => {
   it("should mark the correct notification as read when MARK_AS_READ is passed", () => {
     const notRead = notificationReducer(initialState, fetchNotificationSuccess(data));
     const index = 2;
-    const state = notificationReducer(notRead, markAsRead(index))
+    const state = notificationReducer(notRead, markAsRead(index));
     const result = state.getIn(["notifications", "entities", notification.key, index]);
-    expect(result).toMatchObject({id: index, isRead: true });
+    expect(result).toMatchObject({ id: index, isRead: true });
   });
   it("should set the filter attribute when SET_TYPE_FILTER is passed", () => {
     expect(notificationReducer(initialState, setNotificationFilter(NotificationTypeFilters.URGENT)).toJS()).toMatchObject({ filter: NotificationTypeFilters.URGENT });
+  });
+  it("should set the loading attribute correctly SET_LOADING_STATE is passed", () => {
+    const state = notificationReducer(initialState, setLoadingState(true));
+    expect(state.get("loading")).toBe(true);
   });
 });

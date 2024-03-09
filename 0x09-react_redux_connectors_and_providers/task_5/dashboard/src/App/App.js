@@ -10,7 +10,7 @@ import CourseList from '../CourseList/CourseList';
 import AppContext, { defautlLogOut, defaultUser } from "./AppContext";
 
 
-import { StyleSheet, css } from "aphrodite";
+import { StyleSheet, css } from "aphrodite/no-important";
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
 import BodySection from '../BodySection/BodySection';
 import { listCourses } from "../utils/utils";
@@ -22,15 +22,7 @@ class App extends React.Component {
   constructor (props) {
     super(props);
     this.keyPressed = this.keyPressed.bind(this);
-    this.state = {
-      listNotifications: [...props.listNotifications]
-    };
 
-    this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
-  }
-
-  markNotificationAsRead (id) {
-    this.setState({ listNotifications: this.state.listNotifications.filter((notification) => notification.id !== id) });
   }
 
   keyPressed (e) {
@@ -49,11 +41,10 @@ class App extends React.Component {
   }
   render () {
     return (
-      <AppContext.Provider value={{ user: this.props.user }}>
+      <>
         <Notifications displayDrawer={this.props.displayDrawer}
           handleDisplayDrawer={this.props.displayNotificationDrawer}
           handleHideDrawer={this.props.hideNotificationDrawer}
-          listNotifications={this.state.listNotifications}
           markNotificationAsRead={this.markNotificationAsRead} />
         <div className={css(styles["App"])}>
           <Header />
@@ -74,13 +65,12 @@ class App extends React.Component {
           </div>
           <Footer />
         </div>
-      </AppContext.Provider>
+      </>
     );
   }
 }
 
 App.propTypes = {
-  listNotifications: PropTypes.array,
   displayDrawer: PropTypes.bool,
   isLoggedIn: PropTypes.bool,
   displayNotificationDrawer: PropTypes.func,
@@ -89,7 +79,6 @@ App.propTypes = {
 };
 
 App.defaultProps = {
-  listNotifications: [],
   displayDrawer: false,
   isLoggedIn: false,
   displayNotificationDrawer: () => {},

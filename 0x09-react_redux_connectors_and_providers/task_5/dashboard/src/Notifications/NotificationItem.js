@@ -22,7 +22,7 @@ NotificationItem.propTypes = {
   html: PropTypes.shape({ __html: PropTypes.string.isRequired }),
   value: PropTypes.string,
   markAsRead: PropTypes.func,
-  id: PropTypes.number.isRequired
+  id: PropTypes.any.isRequired
 };
 
 NotificationItem.defaultProps = {

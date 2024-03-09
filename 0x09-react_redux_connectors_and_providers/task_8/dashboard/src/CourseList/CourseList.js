@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     borderRadius: "5px",
     marginTop: "0.5rem",
     borderCollapse: "separate",
-    ":nth-child(1n) tr:not(:first-child)": {
+    ":nth-child(1n) thead tr:not(:first-child)": {
       textAlign: "left",
       fontSize: "0.9rem",
     },

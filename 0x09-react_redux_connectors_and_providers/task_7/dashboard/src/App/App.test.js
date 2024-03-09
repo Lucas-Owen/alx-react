@@ -11,7 +11,7 @@ import Footer from "../Footer/Footer";
 
 import { shallow } from "enzyme";
 import { it, describe, expect, jest } from "@jest/globals";
-import CourseList from "../CourseList/CourseList";
+import { CourseList } from "../CourseList/CourseList";
 
 import { fromJS } from "immutable";
 

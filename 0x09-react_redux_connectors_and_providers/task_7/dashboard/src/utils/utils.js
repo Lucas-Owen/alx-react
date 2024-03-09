@@ -11,9 +11,9 @@ export function getLatestNotification() {
 }
 
 export const listCourses = [
-  { id: 1, name: "ES6", credit: 60 },
-  { id: 2, name: "Webpack", credit: 20 },
-  { id: 3, name: "React", credit: 40 }
+  { id: 1, name: "ES6", credit: 60, isSelected: false },
+  { id: 2, name: "Webpack", credit: 20, isSelected: false },
+  { id: 3, name: "React", credit: 40, isSelected: false }
 ];
 
 export const listNotifications = [

@@ -7,9 +7,6 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import CourseList from '../CourseList/CourseList';
 
-import AppContext, { defautlLogOut, defaultUser } from "./AppContext";
-
-
 import { StyleSheet, css } from "aphrodite/no-important";
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
 import BodySection from '../BodySection/BodySection';

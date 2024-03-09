@@ -8,21 +8,20 @@ export const initialState = Map({
 });
 
 export function uiReducer (state = initialState, action) {
-  const stateMap = Map(state);
   if (!action) return state;
   switch (action.type) {
     case DISPLAY_NOTIFICATION_DRAWER:
-      return stateMap.set("isNotificationDrawerVisible", true);
+      return state.set("isNotificationDrawerVisible", true);
     case HIDE_NOTIFICATION_DRAWER:
-      return stateMap.set("isNotificationDrawerVisible", false);
+      return state.set("isNotificationDrawerVisible", false);
     case LOGIN:
-      return stateMap.set("user", action.user);
+      return state.set("user", action.user);
     case LOGIN_SUCCESS:
-      return stateMap.set("isUserLoggedIn", true);
+      return state.set("isUserLoggedIn", true);
     case LOGIN_FAILURE:
-      return stateMap.set("isUserLoggedIn", false);
+      return state.set("isUserLoggedIn", false);
     case LOGOUT:
-      return stateMap.set("isUserLoggedIn", false).set("user", null);
-    default: return initialState;
+      return state.set("isUserLoggedIn", false).set("user", null);
+    default: return state;
   }
 }

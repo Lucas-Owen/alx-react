@@ -8,7 +8,7 @@ describe("Test for uiReducer function", () => {
     expect(uiReducer()).toEqual(initialState);
   });
   it("should return the initialState when the action is not supported", () => {
-    expect(uiReducer({}, selectCourse(0))).toEqual(initialState);
+    expect(uiReducer({}, selectCourse(0))).toEqual({});
   });
   it("should change the isNotificationDrawerVisible property to true when DISPLAY_NOTIFICATION_DRAWER action is passed", () => {
     expect(uiReducer(initialState, displayNotificationDrawer()).toJS()).toMatchObject({ isNotificationDrawerVisible: true });
